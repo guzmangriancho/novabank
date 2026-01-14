@@ -24,6 +24,9 @@ public class AccountService {
         if (!request.getIban().matches("^ES\\d{22}$")) {
             throw new InvalidIbanException("Invalid IBAN");
         }
+        if(accountRepository.findByIban(request.getIban()) != null){
+            throw new InvalidIbanException("Account with that IBAN already exists");
+        }
 
         Account account = new Account(request.getOwnerName(), request.getIban());
         return accountRepository.save(account);
