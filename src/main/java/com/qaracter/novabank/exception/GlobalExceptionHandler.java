@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InsufficientBalanceException.class)
+    @ExceptionHandler(TooManyWithdrawalsException.class)
     public ResponseEntity<Map<String, Object>> handleTooManyWithdrawals(TooManyWithdrawalsException exception) {
         Map<String, Object> response = new HashMap<>();
         response.put("error", exception.getMessage());
