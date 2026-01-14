@@ -6,7 +6,7 @@ a.
 A REST API lets you talk to the server using HTTP urls, the most basic functionalities are the CRUD methods, create, read, update, or delete.
 Its good for a bank beacause it lets them have all the data being accesed from various apps/webs and its all consistent.
 
-**b. JPA & Raw SQL**
+b.
 JPA  translates java classes into database tables
 Using raw SQL puts you in danger of being attacked by SQL Injections and other attacks
 
