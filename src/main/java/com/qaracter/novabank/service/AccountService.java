@@ -9,6 +9,7 @@ import com.qaracter.novabank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,5 +56,17 @@ public class AccountService {
     public List<Transaction> getTransactions(Long id) {
         Account account = getAccount(id);
         return account.getTransactions();
+    }
+
+    public List<Account> searchAccounts(String owner) {
+        List<Account> all = accountRepository.findAll();
+        List<Account> result = new ArrayList<>();
+        for (Account account : all) {
+            if (account.getOwnerName().toLowerCase().contains(owner.toLowerCase())) {
+                result.add(account);
+            }
+        }
+
+        return result;
     }
 }

@@ -41,4 +41,9 @@ public class AccountController {
     public List<Transaction> getTransactions(@PathVariable Long id) {
         return accountService.getTransactions(id);
     }
+
+    @GetMapping("/search")
+    public List<Account> searchAccounts(@RequestParam String owner) {
+        return accountService.searchAccounts(owner);
+    }
 }
