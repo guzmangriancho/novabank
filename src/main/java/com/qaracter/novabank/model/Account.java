@@ -3,11 +3,13 @@ package com.qaracter.novabank.model;
 
 import com.qaracter.novabank.exception.InsufficientBalanceException;
 import com.qaracter.novabank.exception.InvalidAmountException;
+import com.qaracter.novabank.exception.TooManyWithdrawalsException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,6 +100,14 @@ public class Account {
 
         if (this.balance < amount) {
             throw new InsufficientBalanceException("Insufficient balance");
+        }
+
+        LocalDateTime tenMins = LocalDateTime.now().minusMinutes(10);
+        long recentWithdrawals = this.transactions.stream()
+                .filter(transaction -> "WITHDRAW".equals(transaction.getType()))
+                .filter(transaction -> transaction.getDate().isAfter(tenMins)).count();
+        if (recentWithdrawals >= 3) {
+            throw new TooManyWithdrawalsException("Too many withdrawals in 10 mins");
         }
 
         Transaction transaction = new Transaction("WITHDRAW", amount, this);
