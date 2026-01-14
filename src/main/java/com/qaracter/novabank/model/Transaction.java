@@ -29,6 +29,8 @@ public class Transaction {
     @JsonIgnore
     private Account account;
 
+    boolean flagged;
+
     public Transaction() {}
 
     public Transaction(String type, Double amount, Account account) {
@@ -43,6 +45,7 @@ public class Transaction {
         this.amount = amount;
         this.account = account;
         this.date = LocalDateTime.now();
+        this.flagged = (type.equals("DEPOSIT") && amount > 10000 );
     }
 
     public Long getId() {
