@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<Map<String, Object>> handleAccountNotFound(AccountNotFoundException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "Account not found");
+        response.put("error", exception.getMessage());
         response.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidIbanException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidIban(InvalidIbanException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "Invalid IBAN");
+        response.put("error", exception.getMessage());
         response.put("timestamp", LocalDateTime.now());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidAmountException.class)
     public ResponseEntity<Map<String, Object>> handleInvalidAmount(InvalidAmountException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "Invalid amount");
+        response.put("error", exception.getMessage());
         response.put("timestamp", LocalDateTime.now());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
@@ -40,8 +40,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InsufficientBalanceException.class)
     public ResponseEntity<Map<String, Object>> handleInsufficientBalance(InsufficientBalanceException exception) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "Insuficient Balance");
+        response.put("error", exception.getMessage());
         response.put("timestamp", LocalDateTime.now());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InsufficientBalanceException.class)
+    public ResponseEntity<Map<String, Object>> handleTooManyWithdrawals(TooManyWithdrawalsException exception) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", exception.getMessage());
+        response.put("timestamp", LocalDateTime.now());
+        return new ResponseEntity<>(response, HttpStatus.TOO_MANY_REQUESTS);
     }
 }
