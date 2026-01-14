@@ -30,7 +30,7 @@ public class Account {
     @Min(value = 0L, message = "Balance cannot be negative")
     private Double balance;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
     public Account() {}

@@ -1,5 +1,6 @@
 package com.qaracter.novabank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.qaracter.novabank.exception.InvalidAmountException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -25,6 +26,7 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
+    @JsonIgnore
     private Account account;
 
     public Transaction() {}
