@@ -76,6 +76,7 @@ public class Account {
     }
 
     public List<Transaction> getTransactions() {
+        transactions.sort((a, b) -> b.getDate().compareTo(a.getDate()));
         return transactions;
     }
 
